@@ -9,10 +9,5 @@ public class GetCharacters {
         return Karate.run("classpath:get-characters.feature");
     }
 
-    @Karate.Test
-    Karate postCharacter() {
-        return Karate.run("classpath:post-create-characters.feature");
-    }
-
 
 }

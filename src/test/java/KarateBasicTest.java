@@ -4,20 +4,16 @@ class KarateBasicTest {
     static {
         System.setProperty("karate.ssl", "true");
     }
+
     @Karate.Test
     Karate testBasic() {
-        return Karate.run("classpath:karate-test.feature");
+        return Karate.run(
+                "karate-test.feature",
+                "post-create-characters.feature",
+                "get-characters.feature",
+                "update-characters.feature",
+                "delete-characters.feature"
+        ).relativeTo(getClass());
     }
-
-    @Karate.Test
-    Karate postCharacter() {
-        return Karate.run("classpath:post-create-characters.feature");
-    }
-    @Karate.Test
-    Karate getCharacters() {
-        return Karate.run("classpath:get-characters.feature");
-    }
-
-
 
 }
