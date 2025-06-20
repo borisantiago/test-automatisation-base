@@ -1,4 +1,4 @@
-Feature: DELETE Character - user: btorresb
+Feature: DELETE First Character by ID - user: btorresb
 
 Background:
   * configure ssl = true
@@ -7,20 +7,23 @@ Background:
   * def endpoint = '/' + username + '/api/characters'
   * def fullUrl = path + endpoint
 
-Scenario: delete character - DELETE /api/characters/x
-  * def characterId = 7
+Scenario: get first character and delete
+  Given url fullUrl
+  When method get
+  Then status 200
+
+  * def characterList = response
+  * def characterId = characterList[0].id
   * def deleteUrl = fullUrl + '/' + characterId
+  * print 'ID to delete:', characterId
 
   Given url deleteUrl
   When method delete
   Then status 204
-  And print 'Character deleted successfully for user:', username
+  And print 'Deleted character ID:', characterId
 
-Scenario: verify character is deleted - GET /api/characters/7
-  * def characterId = 7
-  * def getUrl = fullUrl + '/' + characterId
-
-  Given url getUrl
+  # Verificar que fue eliminado
+  Given url deleteUrl
   When method get
   Then status 404
-  And print 'Verified character deletion for ID:', characterId
+  And print 'Verified deletion of character ID:', characterId
